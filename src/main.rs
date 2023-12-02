@@ -11,7 +11,7 @@ use serde::Deserialize;
 use serenity::{
     all::{
         ButtonStyle, Client, Context, EventHandler, GatewayIntents, Interaction, Message,
-        MessageReference, ReactionType, Ready,
+        MessageReference, ReactionType, Ready, MessageFlags,
     },
     async_trait,
     builder::{
@@ -286,6 +286,7 @@ impl EventHandler for Handler {
                     &ctx.http,
                     CreateMessage::default()
                         .embeds(embeds)
+                        .flags(MessageFlags::SUPPRESS_NOTIFICATIONS)
                         .components(vec![CreateActionRow::Buttons(vec![btn])])
                         .reference_message(MessageReference::from(&msg))
                         .allowed_mentions(CreateAllowedMentions::new().replied_user(false)),
